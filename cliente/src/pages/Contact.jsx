@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { contactService } from '../services/contactService';
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,6 +14,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [countdown, setCountdown] = useState(3);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +30,11 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // Aquí iría la lógica para enviar el formulario
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulación de envío
+      console.log('Datos del formulario:', formData);
+      const result = await contactService.sendMessage(formData);
+      console.log('Resultado del servicio:', result);
+      
+      if (result.success) {
       setSubmitStatus('success');
       setFormData({
         name: '',
@@ -35,8 +42,27 @@ const Contact = () => {
         subject: '',
         message: '',
       });
+        
+        // Iniciar countdown y redirección
+        let timeLeft = 3;
+        setCountdown(timeLeft);
+        
+        const countdownInterval = setInterval(() => {
+          timeLeft--;
+          setCountdown(timeLeft);
+          
+          if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            navigate('/');
+          }
+        }, 1000);
+      } else {
+        setSubmitStatus('error');
+        console.error('Error al enviar mensaje:', result.error);
+      }
     } catch (error) {
       setSubmitStatus('error');
+      console.error('Error inesperado:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -152,7 +178,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 bg-white placeholder-gray-500"
                   />
                 </div>
                 <div>
@@ -169,7 +195,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 bg-white placeholder-gray-500"
                   />
                 </div>
                 <div>
@@ -186,7 +212,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 bg-white placeholder-gray-500"
                   />
                 </div>
                 <div>
@@ -203,35 +229,113 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 bg-white placeholder-gray-500"
                   />
                 </div>
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full btn btn-primary"
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
+                    isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
+                  }`}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                      <span>Enviando...</span>
+                    </div>
+                  ) : (
+                    'Enviar Mensaje'
+                  )}
                 </motion.button>
+                {/* Mensaje de éxito */}
                 {submitStatus === 'success' && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-green-600 text-center"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.5, type: "spring", stiffness: 300 }}
+                    className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6 shadow-lg"
                   >
+                    <div className="flex items-center justify-center space-x-3">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
+                        className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center"
+                      >
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </motion.div>
+                      <div className="text-center">
+                        <h3 className="text-lg font-semibold text-green-800 mb-1">
                     ¡Mensaje enviado con éxito!
+                        </h3>
+                        <p className="text-green-600 text-sm">
+                          Te responderé lo antes posible. ¡Gracias por contactarme!
+                        </p>
+                        <motion.p 
+                          key={countdown}
+                          initial={{ scale: 1.2 }}
+                          animate={{ scale: 1 }}
+                          className="text-green-500 text-xs mt-2 font-medium"
+                        >
+                          Serás redirigido al inicio en {countdown} segundos...
                   </motion.p>
+                      </div>
+                    </div>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ delay: 0.5, duration: 0.8 }}
+                      className="mt-4 h-1 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full"
+                    />
+                  </motion.div>
                 )}
+
+                {/* Mensaje de error */}
                 {submitStatus === 'error' && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-red-600 text-center"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.5, type: "spring", stiffness: 300 }}
+                    className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6 shadow-lg"
                   >
-                    Error al enviar el mensaje. Por favor, intenta de nuevo.
-                  </motion.p>
+                    <div className="flex items-center justify-center space-x-3">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
+                        className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center"
+                      >
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </motion.div>
+                      <div className="text-center">
+                        <h3 className="text-lg font-semibold text-red-800 mb-1">
+                          Error al enviar el mensaje
+                        </h3>
+                        <p className="text-red-600 text-sm">
+                          Por favor, verifica tu conexión e intenta de nuevo.
+                        </p>
+                      </div>
+                    </div>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ delay: 0.5, duration: 0.8 }}
+                      className="mt-4 h-1 bg-gradient-to-r from-red-400 to-pink-400 rounded-full"
+                    />
+                  </motion.div>
                 )}
               </form>
             </motion.div>
