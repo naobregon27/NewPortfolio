@@ -90,20 +90,20 @@ const Navbar = ({ onMenuToggle }) => {
                   exit={{ opacity: 0, y: 10, scale: 0.8 }}
                   className="absolute top-24 left-1/2 transform -translate-x-1/2 z-50"
                 >
-                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-2xl border border-white/20 min-w-[240px]">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 shadow-2xl border border-white/20 w-[260px] max-w-[90vw]">
                     <div className="text-center">
-                      <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3">
+                      <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 flex-shrink-0 ring-2 ring-purple-200">
                         <img
                           src="/WhatsApp Image 2023-09-13 at 10.04.25.jpeg"
                           alt="Nahuel Obregón"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-center"
                         />
                       </div>
-                      <h3 className="font-bold text-gray-800 text-sm">Nahuel Obregón</h3>
-                      <p className="text-gray-600 text-xs">Full Stack Developer</p>
-                      <div className="mt-2 flex justify-center space-x-2">
+                      <h3 className="font-bold text-gray-800 text-base mb-1">Nahuel Obregón</h3>
+                      <p className="text-gray-600 text-sm mb-3">Full Stack Developer</p>
+                      <div className="flex justify-center items-center space-x-2 bg-green-50 rounded-full px-3 py-1.5">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="text-xs text-gray-500">Disponible</span>
+                        <span className="text-xs text-green-700 font-medium">Disponible</span>
                       </div>
                     </div>
                     {/* Arrow */}
