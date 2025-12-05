@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [currentImageIndex, setCurrentImageIndex] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openModalId, setOpenModalId] = useState(null);
 
   const handlePrevImage = (projectId) => {
     setCurrentImageIndex((prev) => ({
@@ -118,13 +118,43 @@ const Projects = () => {
       link: 'https://plataformaverificada.site/',
       github: 'https://github.com/naobregon27/casino-virtual',
     },
-
-    // Agrega más proyectos aquí
+    {
+      id: 10,
+      title: 'Clínica Fisioterapia',
+      description: 'Sistema integral de gestión desarrollado específicamente para clínicas de fisioterapia, diseñado para optimizar todas las operaciones administrativas, clínicas y financieras. La aplicación cubre desde la gestión de pacientes y sesiones terapéuticas hasta el control de pagos, facturación y reportes administrativos, proporcionando una solución completa y moderna para profesionales de la salud. <strong>Características Principales:</strong> Gestión integral de pacientes con historial médico completo, sistema de sesiones de fisioterapia con planilla diaria interactiva, gestión financiera y pagos con múltiples métodos, dashboard interactivo con métricas en tiempo real, panel de administración con sistema de roles, autenticación robusta con JWT, y exportación de reportes a Excel.',
+      images: [
+        '/WhatsApp Image 2025-12-05 at 10.53.06.jpeg',
+        '/WhatsApp Image 2025-12-05 at 10.53.39.jpeg',
+        '/WhatsApp Image 2025-12-05 at 10.54.44.jpeg'
+      ],
+      category: 'App Web',
+      technologies: ['React', 'Vite', 'React Router', 'Redux Toolkit', 'Material-UI', 'Tailwind CSS', 'Framer Motion', 'React Hook Form', 'Yup', 'Axios', 'date-fns', 'XLSX', 'Recharts'],
+      link: 'https://fisioterapiamiguel.netlify.app/dashboard',
+      github: 'https://github.com/naobregon27?tab=repositories',
+    },
+    {
+      id: 11,
+      title: 'GameXperience',
+      description: 'Plataforma web social completa diseñada para la comunidad gamer, que combina características de redes sociales modernas con funcionalidades específicas para gaming. La aplicación permite a los usuarios conectarse, formar comunidades, participar en eventos y torneos, gestionar billeteras virtuales, y comunicarse en tiempo real. <strong>Características Principales:</strong> Sistema de comunidades estilo Discord, chat en tiempo real con Socket.IO, sistema de eventos y torneos, billetera virtual con integración Mercado Pago, sistema de amistades, chat directo entre usuarios, notificaciones en tiempo real, y dashboard completo de usuario.',
+      images: [
+        '/WhatsApp Image 2025-12-05 at 18.24.07.jpeg',
+        '/WhatsApp Image 2025-12-05 at 18.26.57.jpeg',
+        '/WhatsApp Image 2025-12-05 at 18.27.10.jpeg',
+        '/WhatsApp Image 2025-12-05 at 18.27.30.jpeg',
+        '/WhatsApp Image 2025-12-05 at 18.28.31.jpeg',
+        '/WhatsApp Image 2025-12-05 at 18.29.09.jpeg'
+      ],
+      category: 'App Web',
+      technologies: ['React', 'Vite', 'React Router', 'Redux Toolkit', 'Redux Persist', 'Socket.IO', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'React Three Fiber', 'date-fns'],
+      link: 'https://gamexperience.games/',
+      github: 'https://github.com/naobregon27?tab=repositories',
+    },
   ];
 
   const categories = [
  //   { id: 'all', name: 'Todos' },
     { id: 'Proyectos Varios', name: 'Proyectos Varios' },
+    { id: 'App Web', name: 'App Web' },
  //   { id: 'mobile', name: 'Mobile' },
  //   { id: 'desktop', name: 'Desktop' },
   ];
@@ -191,7 +221,7 @@ const Projects = () => {
                 transition={{ duration: 0.3 }}
                 className="bg-white rounded-lg overflow-hidden shadow-lg"
               >
-                <div className="relative aspect-video">
+                <div className="relative aspect-video group">
                   {project.images ? (
                     <>
                       <img
@@ -199,22 +229,24 @@ const Projects = () => {
                         alt={project.title}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-x-0 bottom-0 flex justify-between p-2">
+                      <div className="absolute inset-x-0 bottom-0 flex justify-between p-2 z-30">
                         <button
                           onClick={(e) => {
                             e.preventDefault();
+                            e.stopPropagation();
                             handlePrevImage(project.id);
                           }}
-                          className="bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors"
+                          className="bg-black/70 text-white p-2 rounded-full hover:bg-black/90 transition-colors cursor-pointer"
                         >
                           ←
                         </button>
                         <button
                           onClick={(e) => {
                             e.preventDefault();
+                            e.stopPropagation();
                             handleNextImage(project.id);
                           }}
-                          className="bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors"
+                          className="bg-black/70 text-white p-2 rounded-full hover:bg-black/90 transition-colors cursor-pointer"
                         >
                           →
                         </button>
@@ -227,8 +259,8 @@ const Projects = () => {
                       className="w-full h-full object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="flex space-x-4">
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                    <div className="flex space-x-4 pointer-events-auto">
                       <a
                         href={project.link}
                         target="_blank"
@@ -279,9 +311,9 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
-                  {project.id === 8 && (
+                  {(project.id === 8 || project.id === 10 || project.id === 11) && (
                     <button
-                      onClick={() => setIsModalOpen(true)}
+                      onClick={() => setOpenModalId(project.id)}
                       className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
                     >
                       Ver Detalles Completos
@@ -294,15 +326,15 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      {/* Modal */}
+      {/* Modal MSV */}
       <AnimatePresence>
-        {isModalOpen && (
+        {openModalId === 8 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => setOpenModalId(null)}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -317,7 +349,7 @@ const Projects = () => {
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold">MSV Seguridad e Higiene Laboral</h2>
                   <button
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => setOpenModalId(null)}
                     className="text-white/80 hover:text-white transition-colors"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -473,6 +505,370 @@ const Projects = () => {
                   </a>
                   <a
                     href="https://github.com/naobregon27/MSVFront"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-gray-800 text-white py-3 px-6 rounded-lg font-medium text-center hover:bg-gray-900 transition-all duration-300 transform hover:scale-105"
+                  >
+                    💻 Ver Código en GitHub
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal Clínica Fisioterapia */}
+      <AnimatePresence>
+        {openModalId === 10 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setOpenModalId(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-6">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold">Clínica Fisioterapia</h2>
+                  <button
+                    onClick={() => setOpenModalId(null)}
+                    className="text-white/80 hover:text-white transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-white/90 mt-2">Sistema Integral de Gestión para Clínicas de Fisioterapia</p>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                {/* Características Destacadas */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    ✨ Características Destacadas
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <span className="text-teal-500 text-lg">👥</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Gestión Integral de Pacientes</p>
+                          <p className="text-sm text-gray-600">Registro completo con historial médico y seguimiento de sesiones</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-blue-500 text-lg">📅</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Sistema de Sesiones</p>
+                          <p className="text-sm text-gray-600">Planilla diaria interactiva con control de estados</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-green-500 text-lg">💰</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Gestión Financiera</p>
+                          <p className="text-sm text-gray-600">Múltiples métodos de pago y control de deudas</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-purple-500 text-lg">📊</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Dashboard Interactivo</p>
+                          <p className="text-sm text-gray-600">Métricas en tiempo real y estadísticas visuales</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <span className="text-orange-500 text-lg">🔐</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Autenticación Robusta</p>
+                          <p className="text-sm text-gray-600">JWT con refresh tokens y verificación de email</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-indigo-500 text-lg">👨‍💼</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Panel de Administración</p>
+                          <p className="text-sm text-gray-600">Sistema de roles y auditoría completa</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-red-500 text-lg">📄</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Exportación y Reportes</p>
+                          <p className="text-sm text-gray-600">Exportación a Excel e impresión profesional</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-cyan-500 text-lg">🏥</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Especialización en Fisioterapia</p>
+                          <p className="text-sm text-gray-600">Diseñado específicamente para el sector salud</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Módulos Principales */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    🎯 Módulos Principales
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
+                        <span className="text-gray-700">Gestión de pacientes con historial completo</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-gray-700">Planilla diaria de sesiones interactiva</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-gray-700">Control financiero y pagos pendientes</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <span className="text-gray-700">Dashboard con métricas en tiempo real</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <span className="text-gray-700">Sistema de roles y permisos</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <span className="text-gray-700">Reportes y exportación a Excel</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tecnologías */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">🛠️ Tecnologías Utilizadas</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {projects.find(p => p.id === 10)?.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 text-gray-700 rounded-full text-sm font-medium border border-teal-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Enlaces */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href="https://fisioterapiamiguel.netlify.app/dashboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-600 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-teal-600 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105"
+                  >
+                    🌐 Ver Proyecto en Vivo
+                  </a>
+                  <a
+                    href="https://github.com/naobregon27?tab=repositories"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-gray-800 text-white py-3 px-6 rounded-lg font-medium text-center hover:bg-gray-900 transition-all duration-300 transform hover:scale-105"
+                  >
+                    💻 Ver Código en GitHub
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal GameXperience */}
+      <AnimatePresence>
+        {openModalId === 11 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setOpenModalId(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white p-6">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold">GameXperience</h2>
+                  <button
+                    onClick={() => setOpenModalId(null)}
+                    className="text-white/80 hover:text-white transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-white/90 mt-2">Plataforma Social Completa para la Comunidad Gamer</p>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                {/* Características Destacadas */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    ✨ Características Destacadas
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <span className="text-purple-500 text-lg">👥</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Comunidades Estilo Discord</p>
+                          <p className="text-sm text-gray-600">Creación de comunidades públicas y privadas con roles</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-pink-500 text-lg">💬</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Chat en Tiempo Real</p>
+                          <p className="text-sm text-gray-600">Comunicación instantánea con Socket.IO</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-blue-500 text-lg">🎮</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Eventos y Torneos</p>
+                          <p className="text-sm text-gray-600">Sistema completo de gestión de eventos gaming</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-green-500 text-lg">💳</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Billetera Virtual</p>
+                          <p className="text-sm text-gray-600">Integración con Mercado Pago para transacciones</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <span className="text-orange-500 text-lg">🤝</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Sistema de Amistades</p>
+                          <p className="text-sm text-gray-600">Conecta con otros jugadores y forma tu red</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-cyan-500 text-lg">📱</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Chat Directo</p>
+                          <p className="text-sm text-gray-600">Conversaciones privadas entre usuarios</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-red-500 text-lg">🔔</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Notificaciones en Tiempo Real</p>
+                          <p className="text-sm text-gray-600">Sistema completo de alertas y notificaciones</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <span className="text-indigo-500 text-lg">🎨</span>
+                        <div>
+                          <p className="font-medium text-gray-800">Diseño Moderno</p>
+                          <p className="text-sm text-gray-600">Glassmorphism, temas dark/light y animaciones fluidas</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Funcionalidades Principales */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    🎯 Funcionalidades Principales
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <span className="text-gray-700">Comunidades con chat dedicado por comunidad</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                        <span className="text-gray-700">Sistema de eventos con inscripciones y premios</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-gray-700">Billetera virtual con depósitos y retiros</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-gray-700">Sistema de likes, comentarios y reposts</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <span className="text-gray-700">Chat directo con ventanas minimizables</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                        <span className="text-gray-700">Dashboard completo tipo Discord</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tecnologías */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">🛠️ Tecnologías Utilizadas</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {projects.find(p => p.id === 11)?.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 text-gray-700 rounded-full text-sm font-medium border border-purple-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Enlaces */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href="https://gamexperience.games/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-purple-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-105"
+                  >
+                    🌐 Ver Proyecto en Vivo
+                  </a>
+                  <a
+                    href="https://github.com/naobregon27?tab=repositories"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 bg-gray-800 text-white py-3 px-6 rounded-lg font-medium text-center hover:bg-gray-900 transition-all duration-300 transform hover:scale-105"
