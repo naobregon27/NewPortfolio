@@ -67,12 +67,19 @@ class EmailService {
       if (error.response) {
         const sendgridErrors = error.response.body?.errors || [];
         const errorMessages = sendgridErrors.map(e => e.message).join(', ');
+        const errorDetails = sendgridErrors.map(e => `${e.message}${e.field ? ` (campo: ${e.field})` : ''}`).join(', ');
+        
+        console.error('📋 Detalles del error SendGrid:', JSON.stringify(sendgridErrors, null, 2));
         
         if (error.code === 401) {
-          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorMessages || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
+          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorDetails || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
         }
         
-        throw new Error(`Error de SendGrid: ${errorMessages || error.message}`);
+        if (error.code === 403) {
+          throw new Error(`SendGrid Forbidden (403): ${errorDetails || 'El correo remitente no está verificado o la API Key no tiene permisos. Verifica que FROM_EMAIL esté verificado en SendGrid'}`);
+        }
+        
+        throw new Error(`Error de SendGrid: ${errorDetails || error.message}`);
       }
       
       throw new Error(`Error enviando email: ${error.message}`);
@@ -118,12 +125,19 @@ class EmailService {
       if (error.response) {
         const sendgridErrors = error.response.body?.errors || [];
         const errorMessages = sendgridErrors.map(e => e.message).join(', ');
+        const errorDetails = sendgridErrors.map(e => `${e.message}${e.field ? ` (campo: ${e.field})` : ''}`).join(', ');
+        
+        console.error('📋 Detalles del error SendGrid:', JSON.stringify(sendgridErrors, null, 2));
         
         if (error.code === 401) {
-          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorMessages || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
+          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorDetails || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
         }
         
-        throw new Error(`Error de SendGrid: ${errorMessages || error.message}`);
+        if (error.code === 403) {
+          throw new Error(`SendGrid Forbidden (403): ${errorDetails || 'El correo remitente no está verificado o la API Key no tiene permisos. Verifica que FROM_EMAIL esté verificado en SendGrid'}`);
+        }
+        
+        throw new Error(`Error de SendGrid: ${errorDetails || error.message}`);
       }
       
       throw new Error(`Error enviando email de confirmación: ${error.message}`);
