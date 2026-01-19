@@ -98,13 +98,16 @@ export const validateContact = (req, res, next) => {
 export const validateSpam = (req, res, next) => {
   const { message, name, email } = req.body;
   
-  // Detectar posibles patrones de spam
+  // Detectar posibles patrones de spam (menos estricto para permitir URLs legítimas)
   const spamPatterns = [
-    /\b(viagra|cialis|casino|poker|loan|credit|debt|free money|click here)\b/i,
-    /(http|https|www\.)/i,
-    /[A-Z]{5,}/,
-    /!{3,}/,
-    /\?{3,}/
+    /\b(viagra|cialis|casino|poker|loan|credit|debt|free money|click here|make money fast)\b/i,
+    // Solo bloquear URLs sospechosas, no todas las URLs
+    /(http|https):\/\/[^\s]*(viagra|cialis|casino|poker|loan|credit|debt)/i,
+    // Solo bloquear si hay muchas mayúsculas seguidas (más de 10)
+    /[A-Z]{10,}/,
+    // Solo bloquear si hay muchos signos de exclamación o interrogación (más de 5)
+    /!{6,}/,
+    /\?{6,}/
   ];
 
   const suspiciousContent = message + ' ' + name + ' ' + email;

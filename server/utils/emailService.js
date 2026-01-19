@@ -5,19 +5,26 @@ import sgMail from '@sendgrid/mail';
  */
 class EmailService {
   constructor() {
-    this.apiKey = process.env.SENDGRID_API_KEY;
-    this.fromEmail = process.env.FROM_EMAIL || 'noreply@portfolio.com';
-    this.fromName = process.env.FROM_NAME || 'Portfolio Contact';
-    this.adminEmail = process.env.ADMIN_EMAIL;
-    this.replyToEmail = process.env.REPLY_TO_EMAIL || this.fromEmail;
+    this.apiKey = process.env.SENDGRID_API_KEY?.trim();
+    this.fromEmail = process.env.FROM_EMAIL?.trim() || 'noreply@portfolio.com';
+    this.fromName = process.env.FROM_NAME?.trim() || 'Portfolio Contact';
+    this.adminEmail = process.env.ADMIN_EMAIL?.trim();
+    this.replyToEmail = process.env.REPLY_TO_EMAIL?.trim() || this.fromEmail;
 
     if (!this.apiKey) {
       console.warn('⚠️  SENDGRID_API_KEY no configurada. Los emails no se enviarán.');
       return;
     }
 
+    // Validar formato básico de la API key (debe empezar con SG.)
+    if (!this.apiKey.startsWith('SG.')) {
+      console.warn('⚠️  SENDGRID_API_KEY parece tener un formato inválido. Debe empezar con "SG."');
+    }
+
     sgMail.setApiKey(this.apiKey);
     console.log('✅ SendGrid configurado correctamente');
+    console.log(`📧 FROM_EMAIL: ${this.fromEmail}`);
+    console.log(`📧 ADMIN_EMAIL: ${this.adminEmail || 'No configurado'}`);
   }
 
   /**
@@ -55,6 +62,19 @@ class EmailService {
       };
     } catch (error) {
       console.error('❌ Error enviando email al administrador:', error);
+      
+      // Manejar errores específicos de SendGrid
+      if (error.response) {
+        const sendgridErrors = error.response.body?.errors || [];
+        const errorMessages = sendgridErrors.map(e => e.message).join(', ');
+        
+        if (error.code === 401) {
+          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorMessages || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
+        }
+        
+        throw new Error(`Error de SendGrid: ${errorMessages || error.message}`);
+      }
+      
       throw new Error(`Error enviando email: ${error.message}`);
     }
   }
@@ -93,6 +113,19 @@ class EmailService {
       };
     } catch (error) {
       console.error('❌ Error enviando email de confirmación:', error);
+      
+      // Manejar errores específicos de SendGrid
+      if (error.response) {
+        const sendgridErrors = error.response.body?.errors || [];
+        const errorMessages = sendgridErrors.map(e => e.message).join(', ');
+        
+        if (error.code === 401) {
+          throw new Error(`SendGrid API Key inválida o no autorizada: ${errorMessages || 'Verifica tu SENDGRID_API_KEY en las variables de entorno'}`);
+        }
+        
+        throw new Error(`Error de SendGrid: ${errorMessages || error.message}`);
+      }
+      
       throw new Error(`Error enviando email de confirmación: ${error.message}`);
     }
   }

@@ -24,6 +24,10 @@ import { validateContact } from './middleware/validation.js';
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// Configurar trust proxy para que funcione correctamente detrás de proxies (Render, etc.)
+// Esto es necesario para que express-rate-limit identifique correctamente las IPs
+app.set('trust proxy', true);
+
 // Middleware de seguridad
 app.use(helmet({
   contentSecurityPolicy: {
@@ -78,9 +82,19 @@ const limiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  // Deshabilitar validación de X-Forwarded-For ya que trust proxy está configurado
+  validate: {
+    xForwardedForHeader: false
+  },
+  // Configurar keyGenerator para usar la IP correcta cuando está detrás de un proxy
+  keyGenerator: (req) => {
+    // Usar X-Forwarded-For si está disponible (cuando trust proxy está activado)
+    return req.ip || req.connection.remoteAddress || 'unknown';
+  },
   skip: (req) => {
-    // Saltar rate limiting en desarrollo para testing
-    return process.env.NODE_ENV === 'development' && req.ip === '127.0.0.1';
+    // Saltar rate limiting en desarrollo local para testing
+    return process.env.NODE_ENV === 'development' && 
+           (req.ip === '127.0.0.1' || req.ip === '::1' || req.ip === '::ffff:127.0.0.1');
   }
 });
 

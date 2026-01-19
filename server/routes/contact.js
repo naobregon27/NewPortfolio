@@ -80,14 +80,27 @@ router.post('/', validateContact, validateSpam, async (req, res) => {
   } catch (error) {
     console.error('❌ Error en ruta de contacto:', error);
     
-    // Error específico de SendGrid
+    // Error específico de SendGrid (401 Unauthorized)
+    if (error.message && error.message.includes('SendGrid API Key inválida')) {
+      return res.status(503).json({
+        success: false,
+        error: {
+          message: 'Error de configuración del servicio de email. Por favor, contacta al administrador.',
+          status: 503,
+          details: 'La API key de SendGrid no está configurada correctamente'
+        }
+      });
+    }
+    
+    // Error específico de SendGrid desde el response
     if (error.response && error.response.body && error.response.body.errors) {
       const sendgridError = error.response.body.errors[0];
-      return res.status(400).json({
+      const statusCode = error.response.statusCode || 400;
+      return res.status(statusCode).json({
         success: false,
         error: {
           message: `Error del servicio de email: ${sendgridError.message}`,
-          status: 400,
+          status: statusCode,
           details: sendgridError
         }
       });
@@ -97,7 +110,7 @@ router.post('/', validateContact, validateSpam, async (req, res) => {
     res.status(500).json({
       success: false,
       error: {
-        message: 'Error interno del servidor',
+        message: error.message || 'Error interno del servidor',
         status: 500
       }
     });
