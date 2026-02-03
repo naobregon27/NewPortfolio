@@ -74,7 +74,7 @@ const fragmentShader = `
   }
 `;
 
-const CustomTorus = ({ position, scale, color1 = [0.388, 0.388, 0.980], color2 = [0.925, 0.286, 0.600] }) => {
+const CustomTorus = ({ position, scale, color1 = [0.133, 0.545, 0.133], color2 = [0.251, 0.878, 0.816] }) => {
   const meshRef = useRef();
   const materialRef = useRef();
   const mouseRef = useRef({ x: 0, y: 0 });

@@ -24,12 +24,27 @@ const apiRequest = async (endpoint, options = {}) => {
     if (!response.ok) {
       // Intentar obtener más detalles del error del servidor
       let errorMessage = `Error ${response.status}: ${response.statusText}`;
+      let errorDetails = null;
       try {
         const errorData = await response.json();
-        if (errorData.message) {
+        console.log('Error del servidor:', errorData);
+        
+        // Manejar diferentes formatos de error
+        if (errorData.error) {
+          if (typeof errorData.error === 'string') {
+            errorMessage = errorData.error;
+          } else if (errorData.error.message) {
+            errorMessage = errorData.error.message;
+            errorDetails = errorData.error.details;
+          }
+        } else if (errorData.message) {
           errorMessage = errorData.message;
-        } else if (errorData.error) {
-          errorMessage = errorData.error;
+        }
+        
+        // Si hay detalles de validación, incluirlos
+        if (errorDetails && Array.isArray(errorDetails)) {
+          const detailsText = errorDetails.map(d => `${d.field}: ${d.message}`).join(', ');
+          errorMessage = `${errorMessage}. ${detailsText}`;
         }
       } catch (parseError) {
         // Si no se puede parsear el error, usar el mensaje por defecto

@@ -152,11 +152,11 @@ const Projects = () => {
   ];
 
   const categories = [
- //   { id: 'all', name: 'Todos' },
+    { id: 'all', name: 'Todos' },
     { id: 'Proyectos Varios', name: 'Proyectos Varios' },
     { id: 'App Web', name: 'App Web' },
- //   { id: 'mobile', name: 'Mobile' },
- //   { id: 'desktop', name: 'Desktop' },
+    { id: 'mobile', name: 'Mobile' },
+    { id: 'desktop', name: 'Desktop' },
   ];
 
   const filteredProjects = projects.filter(
@@ -314,7 +314,7 @@ const Projects = () => {
                   {(project.id === 8 || project.id === 10 || project.id === 11) && (
                     <button
                       onClick={() => setOpenModalId(project.id)}
-                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                      className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white py-2 px-4 rounded-lg font-medium hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105"
                     >
                       Ver Detalles Completos
                     </button>
@@ -345,7 +345,7 @@ const Projects = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6">
+              <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold">MSV Seguridad e Higiene Laboral</h2>
                   <button
@@ -384,7 +384,7 @@ const Projects = () => {
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="text-purple-500 text-lg">🎨</span>
+                        <span className="text-teal-500 text-lg">🎨</span>
                         <div>
                           <p className="font-medium text-gray-800">Interfaz moderna</p>
                           <p className="text-sm text-gray-600">Animaciones suaves y UX optimizada</p>
@@ -421,7 +421,7 @@ const Projects = () => {
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="text-pink-500 text-lg">🔄</span>
+                        <span className="text-cyan-500 text-lg">🔄</span>
                         <div>
                           <p className="font-medium text-gray-800">Sincronización en tiempo real</p>
                           <p className="text-sm text-gray-600">Entre diferentes roles de usuario</p>
@@ -457,7 +457,7 @@ const Projects = () => {
                         <span className="text-gray-700">Arquitectura de software escalable y mantenible</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                         <span className="text-gray-700">UX/UI Design con enfoque en usabilidad</span>
                       </div>
                     </div>
@@ -485,7 +485,7 @@ const Projects = () => {
                     {projects.find(p => p.id === 8)?.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 text-gray-700 rounded-full text-sm font-medium border border-blue-200"
+                        className="px-4 py-2 bg-gradient-to-r from-green-50 to-teal-50 text-gray-700 rounded-full text-sm font-medium border border-green-200"
                       >
                         {tech}
                       </span>
@@ -499,7 +499,7 @@ const Projects = () => {
                     href="https://msvadmin.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                    className="flex-1 bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105"
                   >
                     🌐 Ver Proyecto en Vivo
                   </a>
@@ -583,7 +583,7 @@ const Projects = () => {
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="text-purple-500 text-lg">📊</span>
+                        <span className="text-teal-500 text-lg">📊</span>
                         <div>
                           <p className="font-medium text-gray-800">Dashboard Interactivo</p>
                           <p className="text-sm text-gray-600">Métricas en tiempo real y estadísticas visuales</p>
@@ -645,7 +645,7 @@ const Projects = () => {
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                         <span className="text-gray-700">Dashboard con métricas en tiempo real</span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -719,7 +719,7 @@ const Projects = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white p-6">
+              <div className="bg-gradient-to-r from-green-500 to-cyan-500 text-white p-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold">GameXperience</h2>
                   <button
@@ -744,14 +744,14 @@ const Projects = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-3">
                       <div className="flex items-start space-x-3">
-                        <span className="text-purple-500 text-lg">👥</span>
+                        <span className="text-green-500 text-lg">👥</span>
                         <div>
                           <p className="font-medium text-gray-800">Comunidades Estilo Discord</p>
                           <p className="text-sm text-gray-600">Creación de comunidades públicas y privadas con roles</p>
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="text-pink-500 text-lg">💬</span>
+                        <span className="text-cyan-500 text-lg">💬</span>
                         <div>
                           <p className="font-medium text-gray-800">Chat en Tiempo Real</p>
                           <p className="text-sm text-gray-600">Comunicación instantánea con Socket.IO</p>
@@ -813,11 +813,11 @@ const Projects = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span className="text-gray-700">Comunidades con chat dedicado por comunidad</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
                         <span className="text-gray-700">Sistema de eventos con inscripciones y premios</span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -849,7 +849,7 @@ const Projects = () => {
                     {projects.find(p => p.id === 11)?.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 text-gray-700 rounded-full text-sm font-medium border border-purple-200"
+                        className="px-4 py-2 bg-gradient-to-r from-green-50 to-cyan-50 text-gray-700 rounded-full text-sm font-medium border border-green-200"
                       >
                         {tech}
                       </span>
@@ -863,7 +863,7 @@ const Projects = () => {
                     href="https://gamexperience.games/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-purple-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-105"
+                    className="flex-1 bg-gradient-to-r from-green-500 to-cyan-500 text-white py-3 px-6 rounded-lg font-medium text-center hover:from-green-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105"
                   >
                     🌐 Ver Proyecto en Vivo
                   </a>

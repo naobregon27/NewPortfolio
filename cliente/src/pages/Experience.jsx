@@ -185,7 +185,7 @@ const Experience = () => {
                     {experience.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-gradient-to-r from-primary/10 to-purple-600/10 text-primary border border-primary/20 rounded-full text-sm font-medium"
+                        className="px-3 py-1 bg-gradient-to-r from-primary/10 to-teal-500/10 text-primary border border-primary/20 rounded-full text-sm font-medium"
                       >
                         {tech}
                       </span>
@@ -266,7 +266,7 @@ const Experience = () => {
                     href={cert.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-primary hover:text-purple-600 font-medium transition-colors"
+                    className="inline-flex items-center text-primary hover:text-teal-500 font-medium transition-colors"
                   >
                     Ver certificación
                     <svg

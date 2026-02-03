@@ -14,6 +14,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [countdown, setCountdown] = useState(3);
 
   const handleChange = (e) => {
@@ -31,17 +32,19 @@ const Contact = () => {
 
     try {
       console.log('Datos del formulario:', formData);
+      setErrorMessage(''); // Limpiar mensaje de error anterior
       const result = await contactService.sendMessage(formData);
       console.log('Resultado del servicio:', result);
       
       if (result.success) {
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+        setSubmitStatus('success');
+        setErrorMessage('');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
         
         // Iniciar countdown y redirección
         let timeLeft = 3;
@@ -58,10 +61,12 @@ const Contact = () => {
         }, 1000);
       } else {
         setSubmitStatus('error');
+        setErrorMessage(result.error || 'Error al enviar el mensaje. Por favor, intenta de nuevo.');
         console.error('Error al enviar mensaje:', result.error);
       }
     } catch (error) {
       setSubmitStatus('error');
+      setErrorMessage(error.message || 'Error inesperado. Por favor, intenta de nuevo.');
       console.error('Error inesperado:', error);
     } finally {
       setIsSubmitting(false);
@@ -254,7 +259,7 @@ const Contact = () => {
                   className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
                     isSubmitting 
                       ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
+                      : 'bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl'
                   }`}
                 >
                   {isSubmitting ? (
@@ -339,7 +344,7 @@ const Contact = () => {
                           Error al enviar el mensaje
                         </h3>
                         <p className="text-red-600 text-sm">
-                          Por favor, verifica tu conexión e intenta de nuevo.
+                          {errorMessage || 'Por favor, verifica tu conexión e intenta de nuevo.'}
                         </p>
                       </div>
                     </div>

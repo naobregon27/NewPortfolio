@@ -117,7 +117,7 @@ const About = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-purple-600/10 rounded-lg"
+                      className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-teal-600/10 rounded-lg"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -160,7 +160,7 @@ const About = () => {
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
                       transition={{ duration: 1, delay: index * 0.1 }}
-                      className="h-full bg-gradient-to-r from-primary to-purple-600 rounded-full"
+                      className="h-full bg-gradient-to-r from-primary to-teal-500 rounded-full"
                     />
                   </div>
                 </div>

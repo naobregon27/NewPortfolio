@@ -57,7 +57,7 @@ const Navbar = ({ onMenuToggle }) => {
                   {location.pathname === link.path && (
                     <motion.div
                       layoutId="navbar-indicator"
-                      className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                      className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-green-500 to-cyan-400 rounded-full"
                     />
                   )}
                 </Link>
@@ -74,12 +74,12 @@ const Navbar = ({ onMenuToggle }) => {
             >
               <div className="relative w-16 h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden cursor-pointer group">
                 <img
-                  src="/WhatsApp Image 2023-09-13 at 10.04.25.jpeg"
+                  src="/Untitled Project (5).png"
                   alt="Nahuel Obregón"
                   className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-purple-400 rounded-full transition-all duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-green-400 rounded-full transition-all duration-300" />
               </div>
 
               {/* Hover Tooltip */}
@@ -92,9 +92,9 @@ const Navbar = ({ onMenuToggle }) => {
                 >
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 shadow-2xl border border-white/20 w-[260px] max-w-[90vw]">
                     <div className="text-center">
-                      <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 flex-shrink-0 ring-2 ring-purple-200">
+                      <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-3 flex-shrink-0 ring-2 ring-green-200">
                         <img
-                          src="/WhatsApp Image 2023-09-13 at 10.04.25.jpeg"
+                          src="/Untitled Project (5).png"
                           alt="Nahuel Obregón"
                           className="w-full h-full object-cover object-center"
                         />
@@ -124,11 +124,11 @@ const Navbar = ({ onMenuToggle }) => {
             >
               <div className="w-12 h-12 rounded-full overflow-hidden cursor-pointer group">
                 <img
-                  src="/WhatsApp Image 2023-09-13 at 10.04.25.jpeg"
+                  src="/Untitled Project (5).png"
                   alt="Nahuel Obregón"
                   className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </motion.div>
 
@@ -176,7 +176,7 @@ const Navbar = ({ onMenuToggle }) => {
                     to={link.path}
                     className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                       location.pathname === link.path
-                        ? 'text-white bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-l-4 border-purple-500'
+                        ? 'text-white bg-gradient-to-r from-green-500/20 to-cyan-400/20 border-l-4 border-green-500'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}

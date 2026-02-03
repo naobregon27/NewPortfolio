@@ -61,13 +61,13 @@ const Home = () => {
           >
             <ambientLight intensity={1.5} />
             <directionalLight position={[30, 30, 15]} intensity={2} />
-            <pointLight position={[-30, -30, -15]} intensity={1.5} color="#9333ea" />
-            <pointLight position={[30, -30, 15]} intensity={1.5} color="#ec4899" />
+            <pointLight position={[-30, -30, -15]} intensity={1.5} color="#22c55e" />
+            <pointLight position={[30, -30, 15]} intensity={1.5} color="#06b6d4" />
             <CustomSphere 
               position={[0, 0, 0]} 
               scale={8}
-              color1={[0.388, 0.388, 0.980]}
-              color2={[0.925, 0.286, 0.600]}
+              color1={[0.133, 0.545, 0.133]}
+              color2={[0.251, 0.878, 0.816]}
             />
             <OrbitControls 
               enableZoom={false} 
@@ -159,7 +159,7 @@ const Home = () => {
               repeat: Infinity,
               repeatType: "reverse",
             }}
-            className="w-8 h-12 border-2 border-white/70 rounded-full flex justify-center cursor-pointer hover:border-purple-400 transition-colors shadow-xl backdrop-blur-sm bg-white/5"
+            className="w-8 h-12 border-2 border-white/70 rounded-full flex justify-center cursor-pointer hover:border-green-400 transition-colors shadow-xl backdrop-blur-sm bg-white/5"
           >
             <motion.div
               animate={{
@@ -170,7 +170,7 @@ const Home = () => {
                 repeat: Infinity,
                 repeatType: "reverse",
               }}
-              className="w-1 h-3 bg-gradient-to-b from-purple-400 to-pink-400 rounded-full mt-2"
+              className="w-1 h-3 bg-gradient-to-b from-green-400 to-cyan-400 rounded-full mt-2"
             />
           </motion.div>
         </motion.div>
