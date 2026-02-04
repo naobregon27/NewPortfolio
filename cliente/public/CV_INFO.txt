@@ -1,0 +1,25 @@
+INSTRUCCIONES PARA EL CV:
+
+Por favor, coloca tu CV en formato PDF con el nombre "CV_Nahuel_Obregon.pdf" en esta carpeta (public).
+
+El botón de descarga del CV ya está implementado en las siguientes páginas:
+1. Página de Inicio (Home) - Hero section
+2. Página Sobre Mí (About) - Hero section
+3. Navbar (en el futuro puedes agregarlo si quieres)
+
+Asegúrate de que el archivo se llame exactamente: CV_Nahuel_Obregon.pdf
+
+Una vez que coloques el archivo PDF aquí, los botones funcionarán automáticamente.
+
+Formato recomendado para el CV:
+- Nombre completo
+- Información de contacto (email, teléfono, LinkedIn, GitHub)
+- Resumen profesional
+- Experiencia laboral (con métricas y logros)
+- Educación y certificaciones
+- Habilidades técnicas
+- Proyectos destacados
+- Idiomas
+- Referencias (opcional)
+
+IMPORTANTE: El CV debe ser ATS-friendly (Application Tracking System) para que pase los filtros automáticos de reclutamiento.

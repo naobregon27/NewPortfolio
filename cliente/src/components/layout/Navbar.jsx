@@ -12,8 +12,10 @@ const Navbar = ({ onMenuToggle }) => {
     { path: '/', label: 'Inicio' },
     { path: '/about', label: 'Sobre Mí' },
     { path: '/projects', label: 'Proyectos' },
+    { path: '/case-studies', label: 'Case Studies' },
     { path: '/experience', label: 'Experiencia' },
-    { path: '/skills', label: 'Habilidades' },
+    { path: '/testimonials', label: 'Testimonios' },
+    { path: '/blog', label: 'Blog' },
     { path: '/contact', label: 'Contacto' },
   ];
 
@@ -42,6 +44,21 @@ const Navbar = ({ onMenuToggle }) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
+            {/* Availability Badge */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center space-x-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border border-green-500/30 rounded-full px-4 py-2 mr-2"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 bg-green-500 rounded-full shadow-lg shadow-green-500/50"
+              />
+              <span className="text-sm font-medium text-white">Disponible para proyectos</span>
+            </motion.div>
+
             <div className="flex space-x-3 lg:space-x-6">
               {navLinks.map((link) => (
                 <Link
@@ -165,6 +182,16 @@ const Navbar = ({ onMenuToggle }) => {
             exit={{ opacity: 0, y: -20 }}
             className="md:hidden mt-4 mb-4 glass-card rounded-xl p-4"
           >
+            {/* Mobile Availability Badge */}
+            <div className="mb-4 flex items-center justify-center space-x-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border border-green-500/30 rounded-full px-4 py-2">
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 bg-green-500 rounded-full shadow-lg shadow-green-500/50"
+              />
+              <span className="text-sm font-medium text-white">Disponible para proyectos</span>
+            </div>
+
             <div className="space-y-2">
               {navLinks.map((link) => (
                 <motion.div

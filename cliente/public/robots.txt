@@ -1,0 +1,13 @@
+# robots.txt for Nahuel Obregón Portfolio
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://tudominio.com/sitemap.xml
+
+# Disallow admin areas (si existen en el futuro)
+# Disallow: /admin/
+
+# Crawl-delay (opcional)
+# Crawl-delay: 10

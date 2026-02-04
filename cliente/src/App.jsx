@@ -11,6 +11,9 @@ import Projects from './pages/Projects';
 import Experience from './pages/Experience';
 import Skills from './pages/Skills';
 import Contact from './pages/Contact';
+import Testimonials from './pages/Testimonials';
+import CaseStudies from './pages/CaseStudies';
+import Blog from './pages/Blog';
 
 function App() {
   const location = useLocation();
@@ -24,6 +27,9 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/skills" element={<Skills />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </AnimatePresence>

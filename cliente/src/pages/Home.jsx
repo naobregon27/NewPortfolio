@@ -139,6 +139,21 @@ const Home = () => {
                   Contactar
                 </Link>
               </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <a
+                  href="/CV_Nahuel_Obregon.pdf"
+                  download
+                  className="btn btn-secondary text-lg px-8 py-4 shadow-2xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Descargar CV
+                </a>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -174,6 +189,50 @@ const Home = () => {
             />
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 relative bg-slate-900/90 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
+          >
+            {[
+              { number: "11+", label: "Proyectos Completados", icon: "🎯" },
+              { number: "4+", label: "Años de Experiencia", icon: "⏱️" },
+              { number: "20+", label: "Tecnologías", icon: "⚡" },
+              { number: "100%", label: "Clientes Satisfechos", icon: "⭐" }
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="glass-card p-6 text-center hover-lift"
+              >
+                <div className="text-4xl mb-2">{stat.icon}</div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                  className="text-4xl md:text-5xl font-bold gradient-text mb-2"
+                >
+                  {stat.number}
+                </motion.div>
+                <p className="text-sm md:text-base text-gray-300 font-medium">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* Featured Tech Stack */}
